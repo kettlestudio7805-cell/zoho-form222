@@ -1,78 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silent Contact Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 20px;
-        }
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 400px;
-            margin: auto;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
-        }
-        input, textarea, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoho Desk Contact Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+    form {
+        background: white;
+        padding: 20px;
+        max-width: 500px;
+        margin: auto;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+    input, textarea, select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    button {
+        background: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background: #218838;
+    }
+</style>
 </head>
 <body>
 
-<h2 style="text-align:center;">Contact Us</h2>
+<h2 style="text-align:center;">Contact Support</h2>
 
-<form id="contactForm" method="POST" action="sendmail.php">
-    <label>Name:</label>
-    <input type="text" name="name" required>
+<form action="mailto:support@excelusfoodbevpvtltd.zohodesk.in" method="POST" enctype="text/plain">
+    <label for="name">Full Name *</label>
+    <input type="text" id="name" name="Full Name" required>
 
-    <label>Email:</label>
-    <input type="email" name="email" required>
+    <label for="email">Email Address *</label>
+    <input type="email" id="email" name="Email" required>
 
-    <label>Message:</label>
-    <textarea name="message" rows="4" required></textarea>
+    <label for="phone">Phone Number *</label>
+    <input type="tel" id="phone" name="Phone Number" required pattern="[0-9]{10}" title="Enter a 10-digit phone number">
 
-    <button type="submit">Send</button>
+    <label for="subject">Subject *</label>
+    <input type="text" id="subject" name="Subject" required>
+
+    <label for="message">Message / Issue Details *</label>
+    <textarea id="message" name="Message" rows="5" required></textarea>
+
+    <label for="priority">Priority *</label>
+    <select id="priority" name="Priority" required>
+        <option value="">Select Priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+
+    <button type="submit">Submit Ticket</button>
 </form>
-
-<script>
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent normal form submission
-
-        let formData = new FormData(this);
-
-        fetch('sendmail.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data); // Show success message
-            document.getElementById('contactForm').reset();
-        })
-        .catch(error => {
-            alert("Error sending message: " + error);
-        });
-    });
-</script>
 
 </body>
 </html>
